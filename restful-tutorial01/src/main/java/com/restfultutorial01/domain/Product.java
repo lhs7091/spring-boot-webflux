@@ -17,6 +17,17 @@ public class Product {
     private String name;
     private Double price;
 
+    public void updateProduct(String name, Double price){
+
+        if (name != null){
+            this.name = name;
+        }
+
+        if (price != null){
+            this.price = price;
+        }
+    }
+
     @Override
     public String toString() {
         return "Product{" +
