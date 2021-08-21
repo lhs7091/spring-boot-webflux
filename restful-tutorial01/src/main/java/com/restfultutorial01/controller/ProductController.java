@@ -25,8 +25,11 @@ public class ProductController {
     }
 
     @PostMapping
-    public Mono<Product> save(@RequestBody Product product){
-        return productService.save(product).log();
+    public Mono<ResponseEntity<Product>> save(@RequestBody Product product){
+        return productService.save(product)
+                .map(savedProduct -> new ResponseEntity<>(savedProduct, HttpStatus.CREATED))
+                .defaultIfEmpty(new ResponseEntity<>(HttpStatus.BAD_REQUEST))
+                .log();
     }
 
     @GetMapping("/{id}")
