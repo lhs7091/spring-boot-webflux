@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.BodyExtractor;
-import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
@@ -66,13 +64,10 @@ public class ProductHandler {
         String productId = serverRequest.pathVariable("productId");
 
         return productService.findById(productId)
-                .flatMap(product -> {
-                    productService.delete(product.getId());
-                    return ServerResponse.ok().bodyValue(product);
-                })
-                .switchIfEmpty(ServerResponse.notFound().build());
-
-
+                .flatMap(product ->
+                    productService.delete(product.getId())
+                            .then(ServerResponse.ok().bodyValue(product)))
+                            .switchIfEmpty(ServerResponse.notFound().build());
 
     }
 }
