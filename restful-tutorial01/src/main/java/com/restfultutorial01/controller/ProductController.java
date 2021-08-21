@@ -1,4 +1,4 @@
-package com.restfultutorial01.controller;
+/*package com.restfultutorial01.controller;
 
 import com.restfultutorial01.domain.Product;
 import com.restfultutorial01.service.ProductService;
@@ -58,3 +58,4 @@ public class ProductController {
                 .defaultIfEmpty(ResponseEntity.notFound().build()).log();
     }
 }
+*/

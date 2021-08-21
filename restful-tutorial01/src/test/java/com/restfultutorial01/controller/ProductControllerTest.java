@@ -8,6 +8,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Log4j2
 @WebFluxTest
+@ContextConfiguration(classes = {ProductHandler.class, ProductRouter.class})
 class ProductControllerTest {
 
     @MockBean
@@ -97,6 +100,7 @@ class ProductControllerTest {
 
         webTestClient.put()
                 .uri("/product/"+product.getId())
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(product), Product.class)
                 .exchange()
                 .expectStatus().isOk()
