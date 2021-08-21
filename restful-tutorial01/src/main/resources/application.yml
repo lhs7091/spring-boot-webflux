@@ -2,3 +2,9 @@ spring:
   data:
     mongodb:
       uri: mongodb://springuser:springpass@localhost:27017/springdb
+
+  security:
+    user:
+      name: test
+      password: test
+      roles: USER, ADMIN
